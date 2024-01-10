@@ -1,0 +1,310 @@
+/* Custom CSS */
+
+
+/***************************************/
+/*Global*
+/***************************************/
+@font-face {
+    font-family: 'fullMoon';
+    src: url('https://anthony-kalbe.fr/themes/classic-child/assets/fonts/full_moon.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family : 'Lato';
+    src: url('https://anthony-kalbe.fr/themes/classic-child/assets/fonts/Lato-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+*{
+    font-family: 'Lato';
+    font-weight: normal;
+    font-style: normal;
+    font-size : 20px !important;
+}
+
+.flex, flex_2{
+    display: flex;
+}
+
+flex_2{
+    width : 100%;
+}
+flex_2 > div{
+    width: 50%;
+}
+
+#wrapper{
+    background-color: #FFF;
+    padding-top: 0;
+}
+
+H1, H2, H3, H4, H5, H6,
+.h1, .h2, .h3,.h4,.h5{
+    font-family: 'fullMoon' !important;
+    font-weight: normal !important;
+    font-style: normal !important;
+}
+H1, H2, H3, H4, H5, H6,
+.h1,.h2, .h3,.h4,.h5 a {
+    font-family: 'fullMoon' !important;
+    font-weight: normal !important;
+    font-style: normal !important;
+}
+
+
+
+/***************************************/
+/*Header*
+/***************************************/
+.f-space-betw{
+    justify-content: space-between;
+}
+
+#top-menu li a{
+    font-size: 25px !important;
+}
+.menu-categories{
+    width: fit-content;
+    margin: auto;
+    font-size: 40px;
+}
+.material-icons.shopping-cart::before{
+    content: '';
+    background-image: url('https://anthony-kalbe.fr/themes/classic-child/assets/img/icon_shopping_cart_.png') !important;
+    display: block;
+    width: 40px;
+    height: 40px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.material-icons{
+    position: relative !important;
+    margin-left : 30px;
+}
+span.cart-products-count{
+    position: absolute !important;
+    top: -5px !important;
+    right: 60px !important;
+    border-radius: 100% !important;
+    background-color: black !important;
+    width: 20px !important;
+    justify-content: center !important;
+    display: flex !important;
+    color: white;
+}
+
+.material-icons.customer_sign{
+    background-image: url('https://anthony-kalbe.fr/themes/classic-child/assets/img/custom_sign.png') !important;
+    display: block;
+    width: 40px;
+    height: 40px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.conteneur{
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+
+#content-wrapper{
+    padding: 0 !important;
+}
+
+
+/***************************************/
+/*Home*
+/***************************************/
+#index #wrapper > .container{
+    width : 100% !important
+}
+
+#index .section-slide h1{
+    color: white;
+    font-size: 36px !important;
+}
+.slide_content h1+hr {
+    background-image: url("https://anthony-kalbe.fr/themes/classic-child/assets/img/line.png") !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    width: fit-content;
+}
+
+.section-slide{
+    background: radial-gradient( farthest-corner at 1200px 600px,#F6CC8C, #EA515F );
+    height: 90vh;
+}
+
+.slideshow {
+    height: 120vh;
+    display: grid;
+    grid-template-columns: 60% auto;
+    justify-content: space-around;
+    align-items: center;
+    overflow: hidden;
+}
+
+.info-product h2{
+    font-size: 30px !important;
+}
+
+.btn {
+    border-radius: 12px;
+    border: 2px solid #EA515F;
+    background-color: transparent;
+}
+.btn:hover{
+    background-color: #EA515F;
+}
+.btn:hover a{
+    color: white;
+}
+
+.btn a{
+    color: #EA515F;
+    font-family: fullMoon;
+}
+
+.btn.fill{
+    background-color: #F6CC8C;
+
+}
+
+.btn.fill:hover{
+    background-color: #EA515F;
+}
+
+.carousel {
+    width: 25rem;
+    height: 25rem;
+    border: 2rem solid transparent;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 0;
+    left: -5%;
+    flex-shrink: 0;
+    transition: rotate 1s;
+}
+
+.slide {
+    width: 10rem;
+    position: absolute;
+    transform-origin: center center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slide p {
+    width: 200px;
+    height: 200px;
+    background-color: #EA515F;
+    border-radius: 50%; /* Utiliser 50% pour un cercle */
+}
+
+.slide:nth-child(1) {
+    right: calc(-0.5rem - 50%); /* Ajustement pour centrer */
+}
+
+.slide:nth-child(2) {
+    bottom: calc(-0.5rem - 50%); /* Ajustement pour centrer */
+}
+
+.slide:nth-child(3) {
+    left: calc(-0.5rem - 50%); /* Ajustement pour centrer */
+}
+
+.slide:nth-child(4) {
+    top: calc(-0.5rem - 50%); /* Ajustement pour centrer */
+}
+
+.slide.active p {
+    transform: scale(2);
+    transition: transform 0.5s 0.5s;
+}
+
+.slide-product{
+    display: none;
+}
+
+.slide-product.active{
+    display: block;
+}
+
+.controls{
+    display: none;
+}
+/***************************************/
+/*Chat iFrame*
+/***************************************/
+#container_chat {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    max-width: 500px;
+    max-height: 500px;
+    width: max-content;
+    height: max-content;
+}
+#container_chat iframe{
+    width: 100%;
+    height: 100%;
+    border: none;
+    overflow: hidden;
+    position: relative;
+}
+
+
+
+
+/***********************************/
+/*Footer */
+/***********************************/
+
+#footer{
+    background-color: #F6CC8C !important;
+}
+
+#footer .h3,
+#footer .h4
+{
+    background-color: #EA515F;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    border-radius: 20px;
+}
+
+#footer .h3 a{
+    color: white;
+}
+
+#footer ul li a{
+    color: black;
+}
+#footer ul li a:hover{
+    color: #EA515F;
+}
+
+/* Information entreprise*/
+#footer #contact-infos{
+    color: black;
+}
+
+#footer a{
+    color: #EA515F;
+}
+#footer a:hover{
+    font-weight: bolder;
+    text-decoration: underline;
+}
