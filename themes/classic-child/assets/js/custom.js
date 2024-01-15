@@ -10,50 +10,27 @@ $(document).ready(function() {
         const slidesProducts = document.querySelectorAll(".slide-product");
 
         let i = 0,
-            j = 1,
+            j=1,
             intervalId;
 
         const intervalFn = () => {
             intervalId = setInterval(() => {
                 carousel.style.rotate = `-${++i * 90}deg`;
-
+                j = j+1===5 ? 1 : j+1;
                 document.querySelector(".slide.active").classList.remove("active");
-                if(j===4){
-                    j= 0;
-                    const activeSlide = document.querySelector(`.slide:nth-child(${++j})`);
-                    activeSlide.classList.add("active");
-                }
-                else{
-                    const activeSlide = document.querySelector(`.slide:nth-child(${++j})`);
-                    activeSlide.classList.add("active");
-                }
+                const activeSlide = document.querySelector(`.slide:nth-child(${j})`);
+                activeSlide.classList.add("active");
 
+                console.log(j)
 
                 document.querySelector(".slide-product.active").classList.remove("active");
-                if(j===4){
-                    j= 0;
-                    const activeProduct = document.querySelector(`.slide-product:nth-child(${++j})`);
-                    activeProduct.classList.add("active");
-                }
-                else{
-                    const activeProduct = document.querySelector(`.slide-product:nth-child(${++j})`);
-                    activeProduct.classList.add("active");
-                    console.log('hello');
-                }
-
-                document.querySelector("a.active").classList.remove("active");
-                if(j===4){
-                    j= 0;
-                    const activeLink = document.querySelector(`.controls a:nth-child(${j})`);
-                    activeLink.classList.add("active");
-                }
-                else{
-                    const activeLink = document.querySelector(`.controls a:nth-child(${j})`);
-                    activeLink.classList.add("active");
-                }
+                const activeProduct = document.querySelector(`div[data-list="${j}"]`);
+                activeProduct.classList.add("active");
+                console.log(document.querySelector(`.slide-product:nth-child(${j})`))
 
 
-                j === 4 && (j = 0);
+
+
             }, 4000);
         };
 
