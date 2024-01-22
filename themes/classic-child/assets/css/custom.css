@@ -84,7 +84,7 @@ H1, H2, H3, H4, H5, H6,
 
 .material-icons{
     position: relative !important;
-    margin-left : 30px;
+    /*margin-left : 30px;*/
 }
 span.cart-products-count{
     position: absolute !important;
@@ -316,6 +316,10 @@ span.cart-products-count{
     justify-content: space-around;
 }
 
+.hidden-md-up{
+    display: none;
+}
+/*
 @media screen and (max-width: 700px) {
     *{
         font-size: 12pt !important;

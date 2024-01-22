@@ -30,7 +30,6 @@ if (!defined('_PS_VERSION_')) {
 
 class MutConnex extends Module
 {
-    protected $config_form = false;
 
     public function __construct()
     {
