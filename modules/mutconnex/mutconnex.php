@@ -350,7 +350,7 @@ class MutConnex extends Module
                 // Traiter la réponse de l'API FastAPI
                 $responseData = json_decode($response, true);
 
-                echo '<div class="fl">';
+                echo '<h2>Une recommandation rien que pour vous</h2><div class="flex" style="justify-content: space-around">';
                 // Récupérer les informations des produits à partir des IDs et les afficher
                 $counter = 0; // Initialiser le compteur
 
@@ -364,10 +364,10 @@ class MutConnex extends Module
                     if ($counter < 3) {
                         ob_start();
                         ?>
-                        <div class="recommendedProduct">
-                            <img src="<?= $recommendedProduct['image'] ?>"></img>
-                            <h4><?= $recommendedProduct['title'] ?></h4>
-                            <p><?= $recommendedProduct['price'] ?></p>
+                        <div class="recommendedProduct flex" style=" background : radial-gradient( farthest-corner at 190px 230px,#F6CC8C, #EA515F ); width : 300px; flex-direction : column; align-items: center; border-radius: 20px; min-height: 64vh; padding-bottom: 12px; justify-content: space-between">
+                            <img src="<?= $recommendedProduct['image'] ?>" style="width: 100%; border-radius: 20px 20px 0px 0px"></img>
+                            <h3 style="text-align: center; color: #FFFFFF; width: 90%"><?= $recommendedProduct['title'] ?></h3>
+                            <p style="color: #FFFFFF;"><?= $recommendedProduct['price'] ?> €</p>
                             <button class="btn fill">
                                 <a href="<?= $recommendedProduct['link_product'] ?>">Voir le produit</a>
                             </button>
@@ -381,7 +381,7 @@ class MutConnex extends Module
                     }
                 }
 
-                echo '<div>';
+                echo '</div>';
             }
         }
 
