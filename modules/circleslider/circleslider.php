@@ -229,7 +229,7 @@ class Circleslider extends Module
 
     public function hookDisplayHome()
     {
-        /* Place your code here. */
+
     }
 
 }

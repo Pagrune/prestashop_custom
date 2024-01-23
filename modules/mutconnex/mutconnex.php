@@ -70,7 +70,8 @@ class MutConnex extends Module
             $this->registerHook('actionAdminLoginControllerLoginAfter') &&
             $this->registerHook('actionAdminLoginControllerLogoutAfter') &&
             $this->registerHook('actionCustomerLogoutAfter') &&
-            $this->registerHook('displayProductAdditionalInfo');
+            $this->registerHook('displayProductAdditionalInfo') &&
+            $this->registerHook('displayHome');
     }
 
     public function uninstall()
@@ -418,5 +419,10 @@ class MutConnex extends Module
         );
     }
 
+    public function hookDisplayHome(){
+        for($i=1; $i<=4; $i++){
+            var_dump($i);
+        }
+    }
 
 }
