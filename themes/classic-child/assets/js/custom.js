@@ -132,3 +132,22 @@ const gotoNum = number => {
     title.innerHTML = descriptions[current].title;
     text.innerHTML = descriptions[current].text;
 };
+
+document.querySelector("#menu-icon>.d-inline").addEventListener(
+    'click',
+    modif
+);
+
+
+function modif(){
+    document.querySelector(".header-top>.container>#mobile_top_menu_wrapper").innerHTML = `
+            <div id="mobile_top_menu_wrapper" class="row hidden-md-up" style="display:block !important; ">
+                <div class="js-top-menu mobile" id="_mobile_top_menu"></div>
+                <div class="js-top-menu-bottom">
+                    <div id="_mobile_currency_selector"></div>
+                    <div id="_mobile_language_selector"></div>
+                    <div id="_mobile_contact_link"></div>
+                </div>
+            </div>
+    `;
+}
