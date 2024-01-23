@@ -70,7 +70,7 @@ class MutConnex extends Module
             $this->registerHook('actionAdminLoginControllerLoginAfter') &&
             $this->registerHook('actionAdminLoginControllerLogoutAfter') &&
             $this->registerHook('actionCustomerLogoutAfter') &&
-            $this->registerHook('displayFooter');
+            $this->registerHook('displayProductAdditionalInfo');
     }
 
     public function uninstall()
@@ -229,7 +229,7 @@ class MutConnex extends Module
     {
         $id_customer = $this->context->customer->id;
         $name_customer = $this->context->customer->firstname;
-        $secret = '3f3e572a8ae921360cb4c761e795a31f51c1a56ab6115a90b54b7643277183ae401913394c67f2d3c053791f4131b2c53504df10fa304c34a2cfb42ce0886d4d';
+        $secret = 'pouet';
 
 // Encodage JSON
         $header = json_encode(['typ' => 'JWT', 'alg' => 'HS256']);
@@ -264,7 +264,7 @@ class MutConnex extends Module
         //récupération de l'id du user connecté avec le context
         $id_customer = $this->context->customer->id;
         $name_customer = $this->context->customer->firstname;
-        $secret = '3f3e572a8ae921360cb4c761e795a31f51c1a56ab6115a90b54b7643277183ae401913394c67f2d3c053791f4131b2c53504df10fa304c34a2cfb42ce0886d4d';
+        $secret = 'pouet';
 
 // Encodage JSON
         $header = json_encode(['typ' => 'JWT', 'alg' => 'HS256']);
@@ -292,7 +292,7 @@ class MutConnex extends Module
         //récupération de l'id du user connecté avec le context
         $id_customer = $this->context->customer->id;
         //génération d'une clé secrète pour mon jwt
-        $secret = '4c565e7f30bcf8548ffe7a235f764a330570b77600215133ebd656e599d01c998f37e5f32a2b06d2bd4c7de32338144600a5178d1b0da547fdae64babae8df80';
+        $secret = 'pouetpouet';
 
 
         //JWT creation
@@ -318,6 +318,105 @@ class MutConnex extends Module
         setcookie('mutconnex', '', time() - 3600);
     }
 
+    public function hookDisplayProductAdditionalInfo() {
+        $product = $this->context->controller->getProduct();
+        if ($product) {
+            // Récupérer l'ID du produit
+            $productId = $product->id;
+
+            // Effectuer une requête cURL vers votre API FastAPI
+            $apiUrl = "https://api.pauline.anthony-kalbe.fr/get_recommendations";
+            $postData = array('input_product_id' => $productId);
+
+            $curl = curl_init();
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => $apiUrl,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_CUSTOMREQUEST => "POST",
+                CURLOPT_POSTFIELDS => json_encode($postData),
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/json',
+                ),
+            ));
+
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
+
+            curl_close($curl);
+
+            if ($err) {
+                echo "Erreur cURL : " . $err;
+            } else {
+                // Traiter la réponse de l'API FastAPI
+                $responseData = json_decode($response, true);
+
+                echo '<div class="fl">';
+                // Récupérer les informations des produits à partir des IDs et les afficher
+                $counter = 0; // Initialiser le compteur
+
+                foreach ($responseData as $recommendation) {
+                    $recommendedProductId = $recommendation['id'];
+
+                    // Récupérer les informations du produit depuis PrestaShop
+                    $recommendedProduct = $this->getProductInfoFromPrestaShop($recommendedProductId);
+
+                    // Afficher les informations du produit seulement pour les 3 premiers
+                    if ($counter < 3) {
+                        ob_start();
+                        ?>
+                        <div class="recommendedProduct">
+                            <img src="<?= $recommendedProduct['image'] ?>"></img>
+                            <h4><?= $recommendedProduct['title'] ?></h4>
+                            <p><?= $recommendedProduct['price'] ?></p>
+                            <button class="btn fill">
+                                <a href="<?= $recommendedProduct['link_product'] ?>">Voir le produit</a>
+                            </button>
+                        </div>
+                        <?php
+                        $showproduct = ob_get_clean();
+                        echo $showproduct;
+
+                        // Incrémenter le compteur
+                        $counter++;
+                    }
+                }
+
+                echo '<div>';
+            }
+        }
+
+    }
+
+// Fonction pour récupérer les informations du produit depuis PrestaShop
+    private function getProductInfoFromPrestaShop($productId) {
+        // Utilisez la fonction getProduct() pour obtenir les informations du produit dans PrestaShop
+        $recommendedProduct = new Product($productId, false, $this->context->language->id);
+
+        // Vous pouvez maintenant accéder aux propriétés du produit, par exemple, le nom, le prix, l'image, etc.
+        $recommendedProductName = $recommendedProduct->name;
+        $recommendedProductPrice = $recommendedProduct->getPrice(true);
+        $recommendedProductLink = $recommendedProduct->getLink();
+
+        // Récupérer l'URL de l'image en utilisant la première image associée au produit
+        //$coverId = $recommendedProduct->getCover($productId)['id'];
+        $recommendedProductImage = $recommendedProduct->link_rewrite;
+        //$recommendedProductImage = $recommendedProduct->getImages(1);
+        $images = Image::getImages(1, $productId);
+        $image = new Image($images[0]['id_image']);
+        $link_img =  _PS_BASE_URL_._THEME_PROD_DIR_.$image->getExistingImgPath().".jpg";
+//        var_dump($recommendedProduct);
+//        $recommendedProductImage = $recommendedProduct->getCover($productId)->bySize('large_default')['url'];
+
+        // Retournez les informations du produit sous forme de tableau associatif
+        return array(
+            'link_product' => $recommendedProductLink,
+            'id' => $productId,
+            'title' => $recommendedProductName,
+            'price' => $recommendedProductPrice,
+            'image' => $link_img,
+            // Ajoutez d'autres champs nécessaires
+        );
+    }
 
 
 }
