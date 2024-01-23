@@ -51,18 +51,18 @@
                   </div>
 
               </section>
-{*              <section class="conteneur none">*}
-{*                  <div class="slideshow">*}
-{*                      <div class="carousel">*}
-{*                          {foreach $carousel_contents as $carousel_content}*}
-{*                              {$carousel_content}*}
-{*                          {/foreach}*}
-{*                      </div>*}
-{*                      <div class="info-product">*}
-{*                          {$product_info_content}*}
-{*                      </div>*}
-{*                  </div>*}
-{*              </section>*}
+              <section class="conteneur none">
+                  <div class="slideshow">
+                      <div class="carousel">
+                          {$carousel_content nofilter}
+                      </div>
+                      <div class="info-product">
+                          <h2>Nos produits du moment</h2>
+                          {$product_info_content nofilter}
+                      </div>
+                  </div>
+              </section>
+
 
               <section class="Part2">
                   <div class="items">

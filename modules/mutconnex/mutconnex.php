@@ -419,25 +419,26 @@ class MutConnex extends Module
         );
     }
 
-    public function hookDisplayHome(){
-        echo '<section class="conteneur none"><div class="slideshow">';
-        echo '<div class="carousel">';
-
+    public function hookDisplayHome()
+    {
         $product_info_content = ""; // Initialize outside the loop
         $usedProductIds = array(); // To keep track of used product IDs
+        $carousel_content = ""; // Initialize outside the loop
 
         for ($i = 1; $i <= 4; $i++) {
             // Initialize random number
             $randomNumber = 0;
 
             // Loop until a unique random number is found
-            do {
+            while (true) {
                 $randomNumber = rand(198, 220);
-            } while (in_array($randomNumber, $usedProductIds));
+
+                if (!in_array($randomNumber, $usedProductIds)) {
+                    break;
+                }
+            }
 
             $usedProductIds[] = $randomNumber; // Add the used product ID to the array
-
-            $carousel_content = "";
 
             if (Product::existsInDatabase($randomNumber)) {
                 // Create an instance of the Product class with the existing product ID
@@ -450,26 +451,20 @@ class MutConnex extends Module
                     $image = new Image($images[0]['id_image']);
                     $link_img = _PS_BASE_URL_ . _THEME_PROD_DIR_ . $image->getExistingImgPath() . ".jpg";
 
+                    // Build product information content
+                    $product_info_content .= "<div class='slide-product";
+                    $product_info_content .= $i == 1 ? " active" : ""; // Add 'active' class for the first item
+                    $product_info_content .= "' data-list='$i'>";
+                    $product_info_content .= "<h3>{$product->name}</h3>";  // Use actual product name
+                    $product_info_content .= "<p>{$product->description_short}</p>";  // Use actual product description
+                    $product_info_content .= "<button class='btn'><a href=''>Découvrir cette saveur</a></button>";
+                    $product_info_content .= "<button class='btn fill'><a href=''>Découvrir nos saveurs</a></button>";
+                    $product_info_content .= "</div>";
+
                     if ($i == 1) {
                         $carousel_content .= "<div class='slide active'><img src='$link_img' style='border-radius: 100%;'></img></div>";
-
-                        // Build product information content
-                        $product_info_content .= "<div class='slide-product active' data-list='$i'>";
-                        $product_info_content .= "<h3>{$product->name}</h3>";  // Use actual product name
-                        $product_info_content .= "<p>{$product->description_short}</p>";  // Use actual product description
-                        $product_info_content .= "<button class='btn'><a href=''>Découvrir cette saveur</a></button>";
-                        $product_info_content .= "<button class='btn fill'><a href=''>Découvrir nos saveurs</a></button>";
-                        $product_info_content .= "</div>";
                     } else {
                         $carousel_content .= "<div class='slide'><img src='$link_img'></img></div>";
-
-                        // Build product information content
-                        $product_info_content .= "<div class='slide-product' data-list='$i'>";
-                        $product_info_content .= "<h3>{$product->name}</h3>";  // Use actual product name
-                        $product_info_content .= "<p>{$product->description_short}</p>";  // Use actual product description
-                        $product_info_content .= "<button class='btn'><a href=''>Découvrir cette saveur</a></button>";
-                        $product_info_content .= "<button class='btn fill'><a href=''>Découvrir nos saveurs</a></button>";
-                        $product_info_content .= "</div>";
                     }
                 } else {
                     $carousel_content = "No images available for the product with ID $randomNumber.";
@@ -477,24 +472,17 @@ class MutConnex extends Module
             } else {
                 $carousel_content = "Product with ID $randomNumber does not exist.";
             }
-
-            // Output the carousel content
-            echo $carousel_content;
         }
 
-        echo '</div>';
+        // Assign the product info content to a Smarty variable
+        $smarty = $this->context->smarty;
+        $smarty->assign('product_info_content', $product_info_content);
 
-// Add the info-product section
-        echo '<div class="info-product">';
-        echo '<h2>Nos produits du moment</h2>';
-
-// Output the product information content
-        echo $product_info_content;
-
-        echo '</div></div></section>';
-
-
-
+        // Assign the carousel content to a Smarty variable
+        $smarty->assign('carousel_content', $carousel_content);
     }
+
+
+
 
 }

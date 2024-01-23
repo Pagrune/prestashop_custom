@@ -227,6 +227,23 @@ span.cart-products-count{
     top: calc(-0.5rem - 50%); /* Ajustement pour centrer */
 }
 
+/*.slide:nth-child(1) img {*/
+/*    transform: rotate(0deg);*/
+/*}*/
+
+/*.slide:nth-child(2) img {*/
+/*    transform: rotate(90deg);*/
+/*}*/
+
+/*.slide:nth-child(3) img {*/
+/*    transform: rotate(180deg);*/
+/*}*/
+
+/*.slide:nth-child(4) img {*/
+/*    transform: rotate(270deg);*/
+/*}*/
+
+
 .slide.active img {
     transform: scale(2);
     transition: transform 0.5s 0.5s;
