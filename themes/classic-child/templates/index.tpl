@@ -51,73 +51,19 @@
                   </div>
 
               </section>
-              <section class="conteneur none">
-                  <div class="slideshow">
-                      <div class="carousel">
-                          <div class="slide active">
-                              <p>Produit 1</p>
-                          </div>
-                          <div class="slide">
-                              <p>Produit 2</p>
-                          </div>
-                          <div class="slide">
-                              <p>Produit 3</p>
-                          </div>
-                          <div class="slide">
-                              <p>Produit 4</p>
-                          </div>
+{*              <section class="conteneur none">*}
+{*                  <div class="slideshow">*}
+{*                      <div class="carousel">*}
+{*                          {foreach $carousel_contents as $carousel_content}*}
+{*                              {$carousel_content}*}
+{*                          {/foreach}*}
+{*                      </div>*}
+{*                      <div class="info-product">*}
+{*                          {$product_info_content}*}
+{*                      </div>*}
+{*                  </div>*}
+{*              </section>*}
 
-                      </div>
-
-                      <div class="info-product">
-                          <h2>Nos produits du moment</h2>
-                          <div class="slide-product active" data-list="1" >
-                              <h3>Crème Glacée Pistache Gourmande</h3>
-                              <p>Découvrez la gourmandise de notre Crème Glacée Pistache Gourmande, élaborée avec des pistaches de qualité supérieure.Une explosion de saveurs riches et crémeuses pour les amateurs de pistache.</p>
-                              <button class="btn">
-                                  <a href="">Découvrir cette saveur</a>
-                              </button>
-                              <button class="btn fill">
-                                  <a href="">Découvrir nos saveurs</a>
-                              </button>
-                          </div>
-                          <div class="slide-product" data-list="2" >
-                              <h3>Crème Glacée Cacao Noisette Délice</h3>
-                              <p>Dégustez le délice de notre Crème Glacée Cacao Noisette Délice, une combinaison exquise de cacao riche et de noisettes croquantes. Une gourmandise irrésistible pour les amateurs de saveurs chocolatées.</p>
-                              <button class="btn">
-                                  <a href="">Découvrir cette saveur</a>
-                              </button>
-                              <button class="btn fill">
-                                  <a href="">Découvrir nos saveurs</a>
-                              </button>
-                          </div>
-                          <div class="slide-product" data-list="3" >
-                              <h3>Cookies & Cream Ice Cream</h3>
-                              <p>Dégustez le délicieux mélange de notre Crème Glacée Cookies & Cream Délicieux, une fusion crémeuse de glace à la vanille et de morceaux de cookies croquants. Une gourmandise irrésistible pour les amateurs de saveurs originales.</p>
-                              <button class="btn">
-                                  <a href="">Découvrir cette saveur</a>
-                              </button>
-                              <button class="btn fill">
-                                  <a href="">Découvrir nos saveurs</a>
-                              </button>
-                          </div>
-                          <div class="slide-product" data-list="4" >
-                              <h3>Sorbet Cerise Noire Intense</h3>
-                              <p>Découvrez l'intensité des saveurs avec notre Sorbet Cerise Noire Intense, élaboré avec des cerises noires juteuses. Une expérience gustative profonde pour les amateurs de fruits rouges.</p>
-                              <button class="btn">
-                                  <a href="">Découvrir cette saveur</a>
-                              </button>
-                              <button class="btn fill">
-                                  <a href="">Découvrir nos saveurs</a>
-                              </button>
-                          </div>
-
-
-                      </div>
-                  </div>
-
-
-              </section>
               <section class="Part2">
                   <div class="items">
                       <div class="item active">

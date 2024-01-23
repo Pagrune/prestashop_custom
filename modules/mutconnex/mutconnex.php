@@ -269,7 +269,7 @@ class MutConnex extends Module
 
 // Encodage JSON
         $header = json_encode(['typ' => 'JWT', 'alg' => 'HS256']);
-        $payload = json_encode(['id_customer' => $id_customer, 'name_customer' => $name_customer]);
+        $payload = json_encode(['id_customer' => $id_customer, "isAdmin"=>false, 'name_customer' => $name_customer]);
 
 // Encodage Base64 URL-safe
         $base64UrlHeader = $this->base64url_encode($header);
@@ -293,12 +293,12 @@ class MutConnex extends Module
         //récupération de l'id du user connecté avec le context
         $id_customer = $this->context->customer->id;
         //génération d'une clé secrète pour mon jwt
-        $secret = 'pouetpouet';
+        $secret = 'pouet';
 
 
         //JWT creation
         $header = json_encode(['typ' => 'JWT', 'alg' => 'HS256']);
-        $payload = json_encode(['id_customer' => $id_customer]);
+        $payload = json_encode(['id_customer' => $id_customer, "isAdmin"=>true]);
         $base64UrlHeader = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($header));
         $base64UrlPayload = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($payload));
         $signature = hash_hmac('sha256', $base64UrlHeader . "." . $base64UrlPayload, $secret, true);
@@ -306,12 +306,12 @@ class MutConnex extends Module
         $jwt = $base64UrlHeader . "." . $base64UrlPayload . "." . $base64UrlSignature;
 
 
-        setcookie('is_admin', $jwt);
+        setcookie('mutconnex', $jwt);
     }
 
     public function hookActionAdminLoginControllerLogoutAfter()
     {
-        setcookie('is_admin', '', time() - 3600);
+        setcookie('mutconnex', '', time() - 3600);
     }
 
     public function hookActionCustomerLogoutAfter()
@@ -420,9 +420,81 @@ class MutConnex extends Module
     }
 
     public function hookDisplayHome(){
-        for($i=1; $i<=4; $i++){
-            var_dump($i);
+        echo '<section class="conteneur none"><div class="slideshow">';
+        echo '<div class="carousel">';
+
+        $product_info_content = ""; // Initialize outside the loop
+        $usedProductIds = array(); // To keep track of used product IDs
+
+        for ($i = 1; $i <= 4; $i++) {
+            // Initialize random number
+            $randomNumber = 0;
+
+            // Loop until a unique random number is found
+            do {
+                $randomNumber = rand(198, 220);
+            } while (in_array($randomNumber, $usedProductIds));
+
+            $usedProductIds[] = $randomNumber; // Add the used product ID to the array
+
+            $carousel_content = "";
+
+            if (Product::existsInDatabase($randomNumber)) {
+                // Create an instance of the Product class with the existing product ID
+                $product = new Product($randomNumber, false, $this->context->language->id);
+
+                // Get images associated with the product
+                $images = Image::getImages($this->context->language->id, $product->id);
+
+                if (!empty($images)) {
+                    $image = new Image($images[0]['id_image']);
+                    $link_img = _PS_BASE_URL_ . _THEME_PROD_DIR_ . $image->getExistingImgPath() . ".jpg";
+
+                    if ($i == 1) {
+                        $carousel_content .= "<div class='slide active'><img src='$link_img' style='border-radius: 100%;'></img></div>";
+
+                        // Build product information content
+                        $product_info_content .= "<div class='slide-product active' data-list='$i'>";
+                        $product_info_content .= "<h3>{$product->name}</h3>";  // Use actual product name
+                        $product_info_content .= "<p>{$product->description_short}</p>";  // Use actual product description
+                        $product_info_content .= "<button class='btn'><a href=''>Découvrir cette saveur</a></button>";
+                        $product_info_content .= "<button class='btn fill'><a href=''>Découvrir nos saveurs</a></button>";
+                        $product_info_content .= "</div>";
+                    } else {
+                        $carousel_content .= "<div class='slide'><img src='$link_img'></img></div>";
+
+                        // Build product information content
+                        $product_info_content .= "<div class='slide-product' data-list='$i'>";
+                        $product_info_content .= "<h3>{$product->name}</h3>";  // Use actual product name
+                        $product_info_content .= "<p>{$product->description_short}</p>";  // Use actual product description
+                        $product_info_content .= "<button class='btn'><a href=''>Découvrir cette saveur</a></button>";
+                        $product_info_content .= "<button class='btn fill'><a href=''>Découvrir nos saveurs</a></button>";
+                        $product_info_content .= "</div>";
+                    }
+                } else {
+                    $carousel_content = "No images available for the product with ID $randomNumber.";
+                }
+            } else {
+                $carousel_content = "Product with ID $randomNumber does not exist.";
+            }
+
+            // Output the carousel content
+            echo $carousel_content;
         }
+
+        echo '</div>';
+
+// Add the info-product section
+        echo '<div class="info-product">';
+        echo '<h2>Nos produits du moment</h2>';
+
+// Output the product information content
+        echo $product_info_content;
+
+        echo '</div></div></section>';
+
+
+
     }
 
 }
