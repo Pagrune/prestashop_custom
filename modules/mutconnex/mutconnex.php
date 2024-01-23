@@ -457,8 +457,8 @@ class MutConnex extends Module
                     $product_info_content .= "' data-list='$i'>";
                     $product_info_content .= "<h3>{$product->name}</h3>";  // Use actual product name
                     $product_info_content .= "<p>{$product->description_short}</p>";  // Use actual product description
-                    $product_info_content .= "<button class='btn'><a href=''>Découvrir cette saveur</a></button>";
-                    $product_info_content .= "<button class='btn fill'><a href=''>Découvrir nos saveurs</a></button>";
+                    $product_info_content .= "<div class='flex f-space-betw'><button class='btn'><a href='{$product->getLink()}'>Découvrir cette saveur</a></button>";
+                    $product_info_content .= "<button class='btn fill'><a href='https://www.anthony-kalbe.fr/index.php?id_category=3&controller=category'>Découvrir nos saveurs</a></button></div>";
                     $product_info_content .= "</div>";
 
                     if ($i == 1) {
