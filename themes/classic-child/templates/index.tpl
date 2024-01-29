@@ -43,18 +43,17 @@
                                       </div>
                                   </h1>
                                   <div class="p">
-                                      Plongez dans un monde de délices rafraîchissants avec notre irrésistible glace aux fraises.
-                                      Chaque bouchée est une explosion de saveurs fruitées, une symphonie de fraîcheur qui égaye les papilles à chaque instant.
+                                      Plongez dans un monde de délices rafraîchissants avec notre irrésistible sélection de <strong>glaces et sorbets</strong>. Confectionnés au sein de notre <strong>entreprise local</strong>, il nous tient à coeur de promouvoir un <strong>savoir-faire hérité de nos ancêtres </strong> et de mettre en avant les <strong>goûts de chez nous</strong>.
+                                      Chaque bouchée est une explosion de saveurs, une symphonie de fraîcheur qui <strong>égaye les papilles</strong> à chaque instant, laissez-vous tenter par nos parfums délicats !
                                   </div>
                       </div>
                       <div id="scene-container">
                           <canvas class="webgl"></canvas>
                       </div>
-                      <div id="scene-container-deux"></div>
                   </div>
 
               </section>
-              <section class="conteneur none">
+              <section class="conteneur">
                   <div class="slideshow">
                       <div class="carousel">
                           {$carousel_content nofilter}
@@ -115,6 +114,6 @@
 
 
     {literal}
-        <script src="themes/classic-child/assets/js/dist/assets/index-4a13b25a.js"></script>;
+        <script src="themes/classic-child/assets/js/dist/assets/index-ac9cbe47.js"></script>;
         {/literal}
     {/block}

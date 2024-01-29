@@ -151,3 +151,21 @@ function modif(){
             </div>
     `;
 }
+
+document.querySelector(".material-icons>svg").addEventListener('mouseover',
+    change
+)
+
+function change(){
+
+    document.querySelector(".none").classList.add('Block');
+}
+
+document.querySelector(".material-icons>svg").addEventListener('mousseout',
+    change2
+)
+
+function change2(){
+
+    document.querySelector(".none").classList.remove('Block');
+}
