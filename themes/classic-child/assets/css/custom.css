@@ -267,6 +267,7 @@ span.cart-products-count{
 /***************************************/
 #container_chat {
     position: fixed;
+    display: none;
     bottom: 0;
     right: 0;
     max-width: 500px;

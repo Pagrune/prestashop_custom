@@ -71,6 +71,7 @@ class MutConnex extends Module
             $this->registerHook('actionAdminLoginControllerLogoutAfter') &&
             $this->registerHook('actionCustomerLogoutAfter') &&
             $this->registerHook('displayProductAdditionalInfo') &&
+            $this->registerHook('displayProductListReviewsBefore') &&
             $this->registerHook('displayHome');
     }
 
@@ -388,6 +389,76 @@ class MutConnex extends Module
 
     }
 
+    public function hookDisplayProductListReviewsBefore() {
+        die();
+        $product = $this->context->controller->getProduct();
+        if ($product) {
+            // Récupérer l'ID du produit
+            $productId = $product->id;
+
+            // Effectuer une requête cURL vers votre API FastAPI
+            $apiUrl = "https://api.pauline.anthony-kalbe.fr/get_recommendations";
+            $postData = array('input_product_id' => $productId);
+
+            $curl = curl_init();
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => $apiUrl,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_CUSTOMREQUEST => "POST",
+                CURLOPT_POSTFIELDS => json_encode($postData),
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/json',
+                ),
+            ));
+
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
+
+            curl_close($curl);
+
+            if ($err) {
+                echo "Erreur cURL : " . $err;
+            } else {
+                // Traiter la réponse de l'API FastAPI
+                $responseData = json_decode($response, true);
+
+                echo '<h2>Une recommandation rien que pour vous</h2><div class="flex" style="justify-content: space-around">';
+                // Récupérer les informations des produits à partir des IDs et les afficher
+                $counter = 0; // Initialiser le compteur
+
+                foreach ($responseData as $recommendation) {
+                    $recommendedProductId = $recommendation['id'];
+
+                    // Récupérer les informations du produit depuis PrestaShop
+                    $recommendedProduct = $this->getProductInfoFromPrestaShop($recommendedProductId);
+
+                    // Afficher les informations du produit seulement pour les 3 premiers
+                    if ($counter < 3) {
+                        ob_start();
+                        ?>
+                        <div class="recommendedProduct flex f-space-betw">
+                            <img src="<?= $recommendedProduct['image'] ?>" style="width: 100%; border-radius: 20px 20px 0px 0px"></img>
+                            <h3 style="text-align: center; color: #FFFFFF; width: 90%"><?= $recommendedProduct['title'] ?></h3>
+                            <p style="color: #FFFFFF;"><?= $recommendedProduct['price'] ?> €</p>
+                            <button class="btn fill">
+                                <a href="<?= $recommendedProduct['link_product'] ?>">Voir le produit</a>
+                            </button>
+                        </div>
+                        <?php
+                        $showproduct = ob_get_clean();
+                        echo $showproduct;
+
+                        // Incrémenter le compteur
+                        $counter++;
+                    }
+                }
+
+                echo '</div>';
+            }
+        }
+
+    }
+
 // Fonction pour récupérer les informations du produit depuis PrestaShop
     private function getProductInfoFromPrestaShop($productId) {
         // Utilisez la fonction getProduct() pour obtenir les informations du produit dans PrestaShop
@@ -418,7 +489,6 @@ class MutConnex extends Module
             // Ajoutez d'autres champs nécessaires
         );
     }
-
     public function hookDisplayHome()
     {
         $product_info_content = ""; // Initialize outside the loop
