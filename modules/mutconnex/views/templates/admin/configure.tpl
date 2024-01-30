@@ -46,3 +46,7 @@
 		</ul>
 	</p>
 </div>
+
+<div id="container_admin_chat" style="height : 100vh;">
+	<iframe src="https://www.anthony-kalbe.fr/fchat/admin" width="100%" height="100%" frameborder="0"></iframe>
+</div>

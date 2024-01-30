@@ -114,6 +114,6 @@
 
 
     {literal}
-        <script src="themes/classic-child/assets/js/dist/assets/index-ac9cbe47.js"></script>;
+        <script src="themes/classic-child/assets/js/dist/assets/index-ac9cbe47.js"></script>
         {/literal}
     {/block}

@@ -1,8 +1,17 @@
 $ = jQuery;
 $(document).ready(function() {
-    if($('#container_aframe')){
+    if($('#container_aframe').length){
         console.log('coucou');
+        const iframe = document.querySelector('iframe');
+
+        if(document.querySelector('.le-chat').classList.contains("open")){
+            iframe.style.height = "140px !important";
+        }
+        else {
+            iframe.style.height = "590px !important";
+        }
     }
+
     if(document.querySelector("#index")){
         const carousel = document.querySelector(".carousel");
         const slides = document.querySelectorAll(".slide");
@@ -21,12 +30,12 @@ $(document).ready(function() {
                 const activeSlide = document.querySelector(`.slide:nth-child(${j})`);
                 activeSlide.classList.add("active");
 
-                console.log(j)
+              //  console.log(j)
 
                 document.querySelector(".slide-product.active").classList.remove("active");
                 const activeProduct = document.querySelector(`div[data-list="${j}"]`);
                 activeProduct.classList.add("active");
-                console.log(document.querySelector(`.slide-product:nth-child(${j})`))
+              //  console.log(document.querySelector(`.slide-product:nth-child(${j})`))
 
 
 
@@ -56,12 +65,12 @@ $(document).ready(function() {
 
         carousel.addEventListener("mouseenter", () => {
             clearInterval(intervalId);
-            console.log("Pause");
+           // console.log("Pause");
         });
 
         carousel.addEventListener("mouseleave", () => {
             intervalFn();
-            console.log("Play");
+           // console.log("Play");
         });
     }
 
